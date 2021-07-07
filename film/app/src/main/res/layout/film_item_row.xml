@@ -4,12 +4,13 @@
     android:id="@+id/filmRowLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/medium_margin"
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/filmRowCardContainer"
-        android:layout_width="326dp"
+        android:layout_width="325dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="15dp"
@@ -32,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/filmImagine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,7 +52,7 @@
                 android:layout_marginRight="@dimen/fab_margin"
                 android:layout_marginBottom="@dimen/fab_margin"
                 >
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/filmLabelFILM"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -62,7 +63,7 @@
                     android:textSize="@dimen/label_size_mediumx"
                     android:textStyle="normal|bold"
                     />
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/filmTitolo"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
@@ -73,20 +74,21 @@
                     android:textSize="@dimen/label_size_mediumxx"
                     android:textStyle="normal|bold"
                     />
-                <!--            <TextView-->
-                <!--                android:id="@+id/filmSommario"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginStart="120dp"-->
-                <!--                android:layout_marginTop="0dp"-->
-                <!--                android:ems="10"-->
-                <!--                android:inputType="text"-->
-                <!--                android:text="21/02/2020  15:30"-->
-                <!--                android:textColor="@android:color/black"-->
-                <!--                android:textSize="12sp"-->
-                <!--                android:textStyle="normal"-->
-                <!--                android:layout_marginLeft="95dp" />-->
-                <TextView
+               <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmOverview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_margin="@dimen/small_xx"
+                android:gravity="center"
+                android:inputType="textMultiLine"
+                android:text="Overview Value"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size_medium"
+                android:textStyle="normal|italic" />
+
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/filmLabelDATA"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -97,7 +99,7 @@
                     android:textSize="@dimen/label_size_mediumx"
                     android:textStyle="normal|bold"
                     />
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/filmDataRilascio"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -110,10 +112,8 @@
                     android:textStyle="normal|bold"
                     />
         </LinearLayout>
-
-
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>
 
 

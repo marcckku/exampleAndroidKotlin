@@ -60,7 +60,7 @@ class AdapterFilm(private val listaFilms: List<Film>, filmApplicationGlobal: Fil
                 Glide.with(this).load(url).into(filmItemRowBinding.filmImagine)
                 filmItemRowBinding.filmProgressBar.visibility = View.GONE
                 filmItemRowBinding.filmTitolo.text          = FilmApplicationGlobal.fixTooLongTitle(film.originalTitle.toString())
-                // filmItemRowBinding.filmSommario.text        = film.
+                filmItemRowBinding.filmOverview.text       =  film.overview
                 filmItemRowBinding.filmDataRilascio.text    = film.releaseDate
                 itemView.setOnClickListener{
                     dettaglioFilm(film.id.toString(), itemView)

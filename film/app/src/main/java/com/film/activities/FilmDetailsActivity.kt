@@ -24,7 +24,7 @@ class FilmDetailsActivity : AppCompatActivity() {
         if (filmApplicationGlobal.resultDetailsFilm != null && filmApplicationGlobal!!.resultActorList != null) {
             filmDetailsBinding.actorsRecyclerView.layoutManager = LinearLayoutManager(this)
 
-            println("size listGenres               = ${filmApplicationGlobal!!.resultDetailsFilm!!.listGenres!!.size}")
+            println("size listGenres                = ${filmApplicationGlobal!!.resultDetailsFilm!!.listGenres!!.size}")
              println("size listProductionCompanies  = ${filmApplicationGlobal!!.resultDetailsFilm!!.listProductionCompanies!!.size}")
              println("size listProductionCountries  = ${filmApplicationGlobal!!.resultDetailsFilm!!.listProductionCountries!!.size}")
              println("size listSpokenLanguages      = ${filmApplicationGlobal!!.resultDetailsFilm!!.listSpokenLanguages!!.size}")
@@ -39,11 +39,32 @@ class FilmDetailsActivity : AppCompatActivity() {
             filmDetailsBinding.filmDataValue.text = filmApplicationGlobal.resultDetailsFilm!!.releaseDate.toString()
             filmDetailsBinding.filmImdbIdValue.text = filmApplicationGlobal.resultDetailsFilm!!.imdbId.toString()
             filmDetailsBinding.filmLinkHomePageValue.text = filmApplicationGlobal.resultDetailsFilm!!.homepage.toString()
+
+            if( filmApplicationGlobal.resultDetailsFilm?.listProductionCompanies.isNullOrEmpty() || filmApplicationGlobal.resultDetailsFilm?.listProductionCountries.isNullOrEmpty())
+            {
+               filmDetailsBinding.filmCountryValue.text  = ""
+               filmDetailsBinding.filmFromValue.text     = ""
+           }
+            else{
+               filmDetailsBinding.filmCountryValue.text     = filmApplicationGlobal.resultDetailsFilm?.listProductionCompanies!![0].originCountry
+               filmDetailsBinding.filmFromValue.text        = filmApplicationGlobal.resultDetailsFilm?.listProductionCompanies!![0].name
+           }
+            if(filmApplicationGlobal.resultDetailsFilm?.listSpokenLanguages.isNullOrEmpty()){
+                filmDetailsBinding.filmLinguaValue.text   = ""
+                filmDetailsBinding.filmOverviewValue.text = ""
+            }
+            else{
+                filmDetailsBinding.filmLinguaValue.text      = filmApplicationGlobal.resultDetailsFilm?.listSpokenLanguages!![0].englishName
+            }
+            if( filmApplicationGlobal.resultDetailsFilm?.overview.isNullOrEmpty())
+            {
+                filmDetailsBinding.filmOverviewValue.text=""
+            }
+            else{
+                filmDetailsBinding.filmOverviewValue.text    = filmApplicationGlobal.resultDetailsFilm?.overview
+            }
+
+
         }
-
-
-
     }
-
-
 }

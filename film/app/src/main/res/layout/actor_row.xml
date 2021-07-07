@@ -5,11 +5,18 @@
     android:id="@+id/actorRowLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_green_water"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
-    <androidx.cardview.widget.CardView
+    <View
+        android:id="@+id/dividerOne"
+        android:layout_width="411dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/deep_purple_dark_900" />
+
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/actorRowCardItemView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,15 +29,14 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/actorImageView"
                 android:layout_width="@dimen/xlarge_margin"
                 android:layout_height="@dimen/xlarge_margin"
-
                 android:background="@color/black" />
 
         </LinearLayout>
@@ -41,7 +47,7 @@
             android:gravity="start"
             android:orientation="vertical">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/actorName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +61,7 @@
                 android:textSize="@dimen/label_size_mediumxx"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/actorRole"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,15 +78,15 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 
         <View
-            android:id="@+id/divider"
+            android:id="@+id/dividerTwo"
             android:layout_width="411dp"
             android:layout_height="2dp"
             android:layout_marginTop="8dp"
-            android:background="#808080" />
+            android:background="@color/deep_purple_dark_900" />
 
 </LinearLayout>
 
