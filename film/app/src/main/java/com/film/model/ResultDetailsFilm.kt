@@ -5,7 +5,11 @@ import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.io.Serializable
-
+/**
+ * Proprieta "belongsToCollection" tolta perchè sempre nulla!!,
+ * e retrofit da problemi con la deserealizazzione del json.
+ *
+ * */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ResultDetailsFilm(

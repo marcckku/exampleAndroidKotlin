@@ -40,12 +40,7 @@ class AdapterFilm(private val listaFilms: List<Film>, filmApplicationGlobal: Fil
         return listaFilms.size
     }
 
-
-
-
-    inner class FilmViewHolder(val filmItemRowBinding: FilmItemRowBinding) : RecyclerView.ViewHolder(
-        filmItemRowBinding.root
-    ){
+    inner class FilmViewHolder(val filmItemRowBinding: FilmItemRowBinding) : RecyclerView.ViewHolder(filmItemRowBinding.root){
         fun bind(film: Film){
             with(itemView){
                 //reset values
@@ -69,9 +64,6 @@ class AdapterFilm(private val listaFilms: List<Film>, filmApplicationGlobal: Fil
             }
         }
     }
-
-
-
 
     private fun dettaglioFilm(movie_id: String?, itemView: View? = null) {
         if (filmApplicationGlobal!!.retrofitService != null && movie_id != null ) {
@@ -98,11 +90,9 @@ class AdapterFilm(private val listaFilms: List<Film>, filmApplicationGlobal: Fil
                     Log.e(TAG, "onFailure")
                     t.printStackTrace()
                 }
-
             })
         }
     }
-
 
     private fun getActorsList(movie_id: String?, itemView: View? = null){
         if (filmApplicationGlobal!!.retrofitService != null) {
@@ -132,7 +122,6 @@ class AdapterFilm(private val listaFilms: List<Film>, filmApplicationGlobal: Fil
                     Log.e(TAG, "onFailure getActorsList")
                     t.printStackTrace()
                 }
-
             })
         }
     }

@@ -14,8 +14,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ListaFilmActivity : AppCompatActivity() {
-    private val TAG: String = ListaFilmActivity::class.java.simpleName
 
+    private val TAG: String = ListaFilmActivity::class.java.simpleName
     lateinit var listaFilmsBinding: ListaFilmsBinding
     lateinit var filmApplicationGlobal: FilmApplicationGlobal
     lateinit var adapterFilm: AdapterFilm

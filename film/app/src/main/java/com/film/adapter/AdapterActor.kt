@@ -16,7 +16,6 @@ class AdapterActor (listActors : List<Cast>) : RecyclerView.Adapter<AdapterActor
         this.listActors = listActors
     }
 
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ActorViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(viewGroup.context)
         var view = ActorRowBinding.inflate(inflater, viewGroup, false)
@@ -31,7 +30,6 @@ class AdapterActor (listActors : List<Cast>) : RecyclerView.Adapter<AdapterActor
         return listActors!!.size
     }
 
-
     inner class ActorViewHolder(val actorRowBinding: ActorRowBinding) : RecyclerView.ViewHolder(actorRowBinding.root){
         fun bind(castActor : Cast){
             with(itemView){
@@ -42,5 +40,4 @@ class AdapterActor (listActors : List<Cast>) : RecyclerView.Adapter<AdapterActor
             }
         }
     }
-
 }

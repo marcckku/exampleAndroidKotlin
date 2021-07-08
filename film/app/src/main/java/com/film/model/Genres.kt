@@ -4,7 +4,6 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -21,8 +20,7 @@ data class Genres(
     constructor(parcel: Parcel) : this(
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(id)

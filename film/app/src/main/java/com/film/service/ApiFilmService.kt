@@ -17,6 +17,6 @@ open interface ApiFilmService {
     fun getDettaglioFilm(@Path("movie_id") movie_id : String) : Call<ResultDetailsFilm>
 
 
-    @GET("/3/movie/{movie_id}/credits?api_key=0bfaf3c0640773566cb7692affcae335&language=en-US")
+    @GET("3/movie/{movie_id}/credits?api_key=0bfaf3c0640773566cb7692affcae335&language=en-US")
     fun getActorsList(@Path("movie_id") movie_id : String) : Call<ResultActorList>
 }
