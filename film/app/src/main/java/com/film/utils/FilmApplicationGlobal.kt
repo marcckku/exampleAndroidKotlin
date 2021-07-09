@@ -26,7 +26,7 @@ class FilmApplicationGlobal : Application(){
 
 
     @JvmField
-    var retrofitService: ApiFilmService? = null
+    var retrofitApiFilmService: ApiFilmService? = null
 
     @JvmField
     var resultDetailsFilm : ResultDetailsFilm?=null
@@ -130,7 +130,7 @@ class FilmApplicationGlobal : Application(){
     }
 
     fun initServiceRetrofit(url: String?) {
-        retrofitService = if (url == null) {
+        retrofitApiFilmService = if (url == null) {
             getRetrofit(DEFAULT_SERVER_DOMAIN_URL)!!.create(ApiFilmService::class.java)
         } else {
             getRetrofit(url)!!.create(ApiFilmService::class.java)

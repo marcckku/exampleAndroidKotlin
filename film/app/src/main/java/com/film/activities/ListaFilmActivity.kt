@@ -32,8 +32,8 @@ class ListaFilmActivity : AppCompatActivity() {
 
 
     private fun getFilms() {
-        if (filmApplicationGlobal.retrofitService != null) {
-            val call: Call<ResultListFilm> = filmApplicationGlobal.retrofitService!!.getFilms()
+        if (filmApplicationGlobal.retrofitApiFilmService != null) {
+            val call: Call<ResultListFilm> = filmApplicationGlobal.retrofitApiFilmService!!.getFilms()
             call.enqueue(object : Callback<ResultListFilm> {
                 override fun onResponse(call: Call<ResultListFilm>, response: Response<ResultListFilm>) {
                     if (response.isSuccessful) {

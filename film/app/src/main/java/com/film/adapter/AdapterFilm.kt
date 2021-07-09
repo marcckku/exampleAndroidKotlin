@@ -66,8 +66,8 @@ class AdapterFilm(private val listaFilms: List<Film>, filmApplicationGlobal: Fil
     }
 
     private fun dettaglioFilm(movie_id: String?, itemView: View? = null) {
-        if (filmApplicationGlobal!!.retrofitService != null && movie_id != null ) {
-            val call: Call<ResultDetailsFilm> = filmApplicationGlobal!!.retrofitService!!.getDettaglioFilm(
+        if (filmApplicationGlobal!!.retrofitApiFilmService != null && movie_id != null ) {
+            val call: Call<ResultDetailsFilm> = filmApplicationGlobal!!.retrofitApiFilmService!!.getDettaglioFilm(
                 movie_id!!
             )
             call.enqueue(object : Callback<ResultDetailsFilm> {
@@ -95,8 +95,8 @@ class AdapterFilm(private val listaFilms: List<Film>, filmApplicationGlobal: Fil
     }
 
     private fun getActorsList(movie_id: String?, itemView: View? = null){
-        if (filmApplicationGlobal!!.retrofitService != null) {
-            val call: Call<ResultActorList> = filmApplicationGlobal!!.retrofitService!!.getActorsList(
+        if (filmApplicationGlobal!!.retrofitApiFilmService != null) {
+            val call: Call<ResultActorList> = filmApplicationGlobal!!.retrofitApiFilmService!!.getActorsList(
                 movie_id!!
             )
             call.enqueue(object : Callback<ResultActorList> {
