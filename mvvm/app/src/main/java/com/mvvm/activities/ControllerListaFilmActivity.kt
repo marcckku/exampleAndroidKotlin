@@ -28,8 +28,7 @@ class ControllerListaFilmActivity : AppCompatActivity() {
         val viewModel: ListaFilmViewModel =
             ViewModelProvider(this).get(ListaFilmViewModel::class.java)
 
-//        // Retrofit Async old style
-//        viewModel.getFilmsAsync(filmApplicationGlobal)?.observe(this, {
+//        viewModel.getFilmsV1(filmApplicationGlobal)?.observe(this, {
 //            // update UI
 //            films.addAll(it)
 //            println(" FILMS films.isEmpty() ===>>>  ${films.isEmpty()}")
@@ -39,15 +38,14 @@ class ControllerListaFilmActivity : AppCompatActivity() {
 //            }
 //        })
 
-        // Retrofit Sync new Style
-        viewModel.getFilmsSync()?.observe(this, {
+        viewModel.getFilmsV2()?.observe(this, {
             // update UI
-                films.addAll(it)
-                println(" FILMS films.isEmpty() ===>>>  ${films.isEmpty()}")
-                if (!films.isNullOrEmpty()) {
-                    adapterFilm = AdapterFilm(films, filmApplicationGlobal)
-                    listaFilmsBinding.filmRecyclerView.adapter = adapterFilm
-                }
+            films.addAll(it)
+            println(" FILMS films.isEmpty() ===>>>  ${films.isEmpty()}")
+            if (!films.isNullOrEmpty()) {
+                adapterFilm = AdapterFilm(films, filmApplicationGlobal)
+                listaFilmsBinding.filmRecyclerView.adapter = adapterFilm
+            }
         })
     }
 }

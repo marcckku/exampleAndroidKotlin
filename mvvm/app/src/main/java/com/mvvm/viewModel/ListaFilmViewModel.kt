@@ -3,9 +3,8 @@ package com.mvvm.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import com.mvvm.model.Film
-import com.mvvm.repository.ListaFilmRepository
+import com.mvvm.repository.FilmRepository
 import com.mvvm.utils.FilmApplicationGlobal
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -32,7 +31,7 @@ import kotlin.coroutines.CoroutineContext
  * Solo se la chiamata al server, non è eseguita sul Thread Principale allora esegui "liveData!!.postValue"
  * Altrimenti esegui il codice qui sotto, solo nel Thread principale!!
  *    GlobalScope.launch {
- *       liveData!!.value =  listaFilmRepository.loadFilmsSync().films
+ *       liveData!!.value =  filmRepository.loadFilmsSync().films
  *   }
  * */
 
@@ -40,34 +39,42 @@ class ListaFilmViewModel : ViewModel() {
 
     private val TAG: String = ListaFilmViewModel::class.java.simpleName
     var liveData: MutableLiveData<List<Film>>? = null
-    var listaFilmRepository: ListaFilmRepository = ListaFilmRepository()
+    var filmRepository: FilmRepository = FilmRepository()
     private val context: CoroutineContext = Dispatchers.Main
     private val dispatchers: CoroutineContext = Dispatchers.IO
-    var coroutineScope: CoroutineScope = CoroutineScope( dispatchers + SupervisorJob())
+    var coroutineScope: CoroutineScope = CoroutineScope(dispatchers + SupervisorJob())
 
-    //vecchia versione retrofit
-    fun getFilmsAsync(filmApplicationGlobal: FilmApplicationGlobal): LiveData<List<Film>>? {
+    //1) vecchia versione retrofit
+    fun getFilmsV1(filmApplicationGlobal: FilmApplicationGlobal): LiveData<List<Film>>? {
         if (liveData == null) {
             liveData = MutableLiveData<List<Film>>()
             coroutineScope.launch {
-                listaFilmRepository.loadFilmsAsync(filmApplicationGlobal, liveData!!)
+                filmRepository.loadFilmsAsyncV1(filmApplicationGlobal, liveData!!)
             }
         }
         return liveData
     }
 
 
-    //ultima versione retrofit
-     fun getFilmsSync() : LiveData<List<Film>>?{
-         if( liveData == null) {
-             liveData = MutableLiveData<List<Film>>()
-         }
-         GlobalScope.launch {
-             liveData!!.postValue(listaFilmRepository.loadFilmsSync().films)
-         }
-         return liveData
-     }
+    //2) ultima versione retrofit
+    fun getFilmsV2(): LiveData<List<Film>>? {
+        if (liveData == null) {
+            liveData = MutableLiveData<List<Film>>()
+        }
+        coroutineScope.launch {
+            liveData!!.postValue(filmRepository.loadFilmsSyncV2().films)
+        }
+        return liveData
+    }
 
+    //3)  customize - chiamata syncrona
+    fun getFilmsSincrono(filmApplicationGlobal: FilmApplicationGlobal): LiveData<List<Film>>? {
+        if (liveData == null) {
+            liveData = MutableLiveData<List<Film>>()
+            liveData = filmRepository.getFilmsSincrono(filmApplicationGlobal)
+        }
+        return liveData
+    }
 
     override fun onCleared() {
         coroutineScope.cancel()

@@ -24,12 +24,6 @@ class FilmApplicationGlobal : Application() {
     @JvmField
     var retrofitApiFilmService: ApiFilmService? = null
 
-    @JvmField
-    var resultDetailsFilm: ResultDetailsFilm? = null
-
-    @JvmField
-    var resultActorList: ResultActorList? = null
-
 
     var retrofit: Retrofit? = null
 
@@ -67,7 +61,7 @@ class FilmApplicationGlobal : Application() {
             // Do an asynchronous operation to fetch films.
             if (filmApplicationGlobal.retrofitApiFilmService != null) {
                 val call: Call<ResultListFilm> =
-                    filmApplicationGlobal.retrofitApiFilmService!!.getFilmsAsync()
+                    filmApplicationGlobal.retrofitApiFilmService!!.getFilmsAsyncV1()
                 call.enqueue(object : Callback<ResultListFilm> {
                     override fun onResponse(
                         call: Call<ResultListFilm>,

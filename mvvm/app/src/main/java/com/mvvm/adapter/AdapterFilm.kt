@@ -1,21 +1,15 @@
 package com.mvvm.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.mvvm.activities.FilmDetailsActivity
+import com.mvvm.activities.ControllerFilmDetailsActivity
 import com.mvvm.databinding.FilmItemRowBinding
 import com.mvvm.model.Film
-import com.mvvm.model.ResultActorList
-import com.mvvm.model.ResultDetailsFilm
 import com.mvvm.utils.FilmApplicationGlobal
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class AdapterFilm(
     private val listaFilms: List<Film>,
@@ -23,6 +17,7 @@ class AdapterFilm(
 ) : RecyclerView.Adapter<AdapterFilm.FilmViewHolder?>() {
     private val TAG: String = AdapterFilm::class.java.simpleName
     var filmApplicationGlobal: FilmApplicationGlobal? = null
+    lateinit var _itemView: View
 
     init {
         this.filmApplicationGlobal = filmApplicationGlobal
@@ -61,77 +56,19 @@ class AdapterFilm(
                     FilmApplicationGlobal.fixTooLongTitle(film.originalTitle.toString())
                 filmItemRowBinding.filmOverview.text = film.overview
                 filmItemRowBinding.filmDataRilascio.text = film.releaseDate
+                _itemView = itemView
                 itemView.setOnClickListener {
-                    dettaglioFilm(film.id.toString(), itemView)
+                    forwardDetails(film.id.toString())
                 }
 
             }
         }
     }
 
-    private fun dettaglioFilm(movie_id: String?, itemView: View? = null) {
-        if (filmApplicationGlobal!!.retrofitApiFilmService != null && movie_id != null) {
-            val call: Call<ResultDetailsFilm> =
-                filmApplicationGlobal!!.retrofitApiFilmService!!.getDettaglioFilm(
-                    movie_id!!
-                )
-            call.enqueue(object : Callback<ResultDetailsFilm> {
-                override fun onResponse(
-                    call: Call<ResultDetailsFilm>,
-                    response: Response<ResultDetailsFilm>
-                ) {
-                    if (response.isSuccessful) {
-                        println("Success dettaglioFilm!!")
-                        Log.e(TAG, "SUCCESS!!")
-                        filmApplicationGlobal!!.resultDetailsFilm =
-                            response.body() as ResultDetailsFilm
-                        getActorsList(movie_id!!, itemView!!)
-                    } else {
-                        println("Errore getFilms() call retrofit")
-                        Log.e(TAG, "NUMBER ERROR")
-                    }
-                }
-
-                override fun onFailure(call: Call<ResultDetailsFilm>, t: Throwable) {
-                    Log.e(TAG, "onFailure")
-                    t.printStackTrace()
-                }
-            })
-        }
-    }
-
-    private fun getActorsList(movie_id: String?, itemView: View? = null) {
-        if (filmApplicationGlobal!!.retrofitApiFilmService != null) {
-            val call: Call<ResultActorList> =
-                filmApplicationGlobal!!.retrofitApiFilmService!!.getActorsList(
-                    movie_id!!
-                )
-            call.enqueue(object : Callback<ResultActorList> {
-                override fun onResponse(
-                    call: Call<ResultActorList>,
-                    response: Response<ResultActorList>
-                ) {
-                    if (response.isSuccessful) {
-                        println("Success getActorsList!!")
-                        Log.e(TAG, "SUCCESS!!")
-                        filmApplicationGlobal!!.resultActorList = response.body() as ResultActorList
-                        val intentDetailsFilm = Intent(
-                            itemView!!.context,
-                            FilmDetailsActivity::class.java
-                        )
-                        itemView!!.context.startActivity(intentDetailsFilm)
-                    } else {
-                        println("Errore getFilms() call retrofit")
-                        Log.e(TAG, "CODE NUMBER ERROR")
-                    }
-                }
-
-                override fun onFailure(call: Call<ResultActorList>, t: Throwable) {
-                    Log.e(TAG, "onFailure getActorsList")
-                    t.printStackTrace()
-                }
-            })
-        }
+    private fun forwardDetails(movie_id : String){
+        val intentDetailsFilm = Intent(_itemView!!.context, ControllerFilmDetailsActivity::class.java)
+        intentDetailsFilm.putExtra("movie_id", movie_id)
+        _itemView!!.context.startActivity(intentDetailsFilm)
     }
 
 }
