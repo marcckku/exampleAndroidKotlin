@@ -1,4 +1,4 @@
-package com.mvvm.service
+package com.mvvm.interfaces
 
 import com.mvvm.model.ResultActorList
 import com.mvvm.model.ResultDetailsFilm
