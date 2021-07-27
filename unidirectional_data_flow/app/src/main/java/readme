@@ -1,0 +1,11 @@
+
+
+
+CI SONO 3 STATI NELLA VISTA UTENTE
+
+1) CONTENT (ANCHE VUOTO)
+2) LOADING
+3) ERROR   (GESTIONE IN CARICO DEL PROGRAMMATORE
+
+Stati sono gestiti dalle classi Sigilate o Sealed (https://kotlinlang.org/docs/sealed-classes.html)
+
