@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filmDetailsLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/small_xx"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/filmDetailsCardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/small_xx"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="@dimen/small_xxx"
+        app:cardElevation="12dp"
+        app:shapeAppearanceOverlay="@dimen/small_xxx">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_green_water"
+            android:gravity="center">
+
+
+            <LinearLayout
+                android:id="@+id/linearLayoutLabels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_red"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/filmTitolo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:inputType="textMultiLine"
+                    android:text="Titolo Film"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/label_size_large"
+                    android:textStyle="normal|italic|bold" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/filmDetailImagine"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="@dimen/fab_margin"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:layout_marginTop="@dimen/small_xxx"
+                    android:layout_marginEnd="@dimen/fab_margin"
+                    android:layout_marginRight="@dimen/fab_margin"
+                    android:layout_marginBottom="@dimen/fab_margin"
+                    android:gravity="center" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/small_xxx"
+                    android:background="@color/white" />
+
+
+            </LinearLayout>
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmDataLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:text="Data  Film"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size_mediumx"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintEnd_toStartOf="@+id/filmFromLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filmOverviewValue" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmImdb_idLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginTop="44dp"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:text="Imdb_id"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size_mediumx"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintEnd_toStartOf="@+id/filmLinguaLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filmDataLabel" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmDataValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="4dp"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:text="Data  Value"
+                android:textColor="@android:color/tertiary_text_light"
+                android:textSize="@dimen/label_size_medium"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filmDataLabel" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmImdb_idValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="4dp"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:text="Imdb_idValue"
+                android:textColor="@android:color/tertiary_text_light"
+                android:textSize="@dimen/label_size_medium"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filmImdb_idLabel" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmLinkHomePageLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:gravity="center_horizontal"
+                android:inputType="textMultiLine"
+                android:text="Link HomePage"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size_medium"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filmLinguaValue">
+
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmLinkHomePageValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:inputType="textMultiLine"
+                android:text="Link HomePage Value"
+                android:textColor="@android:color/tertiary_text_light"
+                android:textSize="@dimen/label_size_medium"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filmLinkHomePageLabel">
+
+            </com.google.android.material.textview.MaterialTextView>
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmActorsLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:gravity="center"
+                android:inputType="text"
+                android:text="Actors List"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size_mediumx"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filmLinkHomePageValue">
+
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmFromLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:text="Film"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size_mediumx"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintEnd_toStartOf="@+id/filmCountryLabel"
+                app:layout_constraintStart_toEndOf="@+id/filmDataLabel"
+                app:layout_constraintTop_toBottomOf="@+id/filmOverviewValue" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmFromValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="85dp"
+                android:layout_marginLeft="85dp"
+                android:layout_marginTop="4dp"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:text="Pixar"
+                android:textColor="@android:color/tertiary_text_light"
+                android:textSize="@dimen/label_size_medium"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintStart_toEndOf="@+id/filmDataValue"
+                app:layout_constraintTop_toBottomOf="@+id/filmFromLabel" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmLinguaLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="82dp"
+                android:layout_marginLeft="82dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="165dp"
+                android:layout_marginRight="165dp"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:text="Language"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size_mediumx"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/filmImdb_idLabel"
+                app:layout_constraintTop_toBottomOf="@+id/filmFromLabel" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmLinguaValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="191dp"
+                android:layout_marginRight="191dp"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:text="English"
+                android:textColor="@android:color/tertiary_text_light"
+                android:textSize="@dimen/label_size_medium"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/filmImdb_idValue"
+                app:layout_constraintTop_toBottomOf="@+id/filmLinguaLabel" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/actorsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="135dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/small_xxx"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filmActorsLabel"
+                app:layout_constraintVertical_bias="0.0"
+                tools:listitem="@layout/actor_row" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmOverviewLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:inputType="textMultiLine"
+                android:text="Overview"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size_mediumx"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutLabels" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmOverviewValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_xx"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="459dp"
+                android:gravity="center"
+                android:inputType="textMultiLine"
+                android:text="Overview Value"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size_medium"
+                android:textStyle="normal|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filmOverviewLabel" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmCountryLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginTop="20dp"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:text="Country"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size_mediumx"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.944"
+                app:layout_constraintStart_toEndOf="@+id/filmFromLabel"
+                app:layout_constraintTop_toBottomOf="@+id/filmOverviewValue" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/filmCountryValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:text="Country Value"
+                android:textColor="@android:color/tertiary_text_light"
+                android:textSize="@dimen/label_size_medium"
+                android:textStyle="normal|italic|bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/filmFromValue"
+                app:layout_constraintTop_toBottomOf="@+id/filmCountryLabel" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

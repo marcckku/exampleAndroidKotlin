@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="small_xxx">4dp</dimen>
+    <dimen name="small_xx">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="small_margin">10dp</dimen>
+    <dimen name="standard_margin">20dp</dimen>
+    <dimen name="medium_margin">40dp</dimen>
+    <dimen name="large_margin">60dp</dimen>
+    <dimen name="xlarge_margin">80dp</dimen>
+    <dimen name="xxlarge_margin">100dp</dimen>
+
+    <dimen name="label_size_small">8sp</dimen>
+    <dimen name="label_size_medium">12sp</dimen>
+    <dimen name="label_size_mediumx">16sp</dimen>
+    <dimen name="label_size_mediumxx">18sp</dimen>
+    <dimen name="label_size_large">20sp</dimen>
+
+</resources>
