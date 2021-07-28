@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/userProfileLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/warning_color"
+    android:orientation="vertical">
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/userProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@color/cardview_dark_background"
+        app:cardBackgroundColor="@color/cardview_dark_background"
+        app:cardCornerRadius="@dimen/small_xx"
+        app:cardElevation="@dimen/small_xx"
+        app:shapeAppearanceOverlay="@dimen/small_xx">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profileImage"
+                android:layout_width="@dimen/xlarge_margin"
+                android:layout_height="@dimen/xlarge_margin"
+                android:background="@drawable/ic_user" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/userProfileDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/profileEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Email User"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/label_size_medium"
+                android:textStyle="normal" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/profileRole"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="@dimen/small_xxx"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Role"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/label_size_medium"
+                android:textStyle="normal" />
+
+            <!--            <com.omarshehe.forminputkotlin.FormInputMultiline-->
+            <!--                android:id="@+id/profileDescription"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:layout_marginTop="@dimen/medium_margin"-->
+            <!--                app:customer_height="250"-->
+            <!--                android:gravity="start"-->
+            <!--                android:background="@color/brown_50"-->
+            <!--                app:customer_hint="Descrizione"-->
+            <!--                app:customer_isMandatory="true"-->
+            <!--                app:customer_label="Descrizione"-->
+            <!--                app:customer_maxLength="200"-->
+            <!--                app:customer_value="My Descrption.... "-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="parent" />-->
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+    <View
+        android:id="@+id/dividerInfo"
+        android:layout_width="411dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="2dp"
+        android:background="@android:color/black" />
+    <!--    <View-->
+    <!--        android:id="@+id/dividerOne"-->
+    <!--        android:layout_width="411dp"-->
+    <!--        android:layout_height="2dp"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:background="@color/deep_purple_dark_900" />-->
+
+    <!--    <com.google.android.material.card.MaterialCardView-->
+    <!--        android:id="@+id/actorRowCardItemView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:layout_margin="15dp"-->
+    <!--        app:cardBackgroundColor="@android:color/white"-->
+    <!--        app:cardCornerRadius="@dimen/small_xx"-->
+    <!--        app:cardElevation="12dp"-->
+    <!--        app:shapeAppearanceOverlay="@dimen/small_xx">-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:gravity="center_horizontal"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--            <com.google.android.material.imageview.ShapeableImageView-->
+    <!--                android:id="@+id/actorImageView"-->
+    <!--                android:layout_width="@dimen/xlarge_margin"-->
+    <!--                android:layout_height="@dimen/xlarge_margin"-->
+    <!--                android:background="@drawable/ic_user" />-->
+
+    <!--        </LinearLayout>-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:gravity="start"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--            <com.google.android.material.textview.MaterialTextView-->
+    <!--                android:id="@+id/actorName"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginStart="100dp"-->
+    <!--                android:layout_marginLeft="100dp"-->
+    <!--                android:layout_marginTop="10dp"-->
+    <!--                android:ems="10"-->
+    <!--                android:inputType="text"-->
+    <!--                android:text="Nome Attore"-->
+    <!--                android:textColor="@android:color/black"-->
+    <!--                android:textSize="@dimen/label_size_mediumxx"-->
+    <!--                android:textStyle="normal" />-->
+
+    <!--            <com.google.android.material.textview.MaterialTextView-->
+    <!--                android:id="@+id/actorRole"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginStart="100dp"-->
+    <!--                android:layout_marginLeft="100dp"-->
+    <!--                android:layout_marginTop="0dp"-->
+    <!--                android:ems="10"-->
+    <!--                android:inputType="text"-->
+    <!--                android:text="Ruolo"-->
+    <!--                android:textColor="@android:color/black"-->
+    <!--                android:textSize="@dimen/label_size_medium"-->
+    <!--                android:textStyle="normal" />-->
+
+
+    <!--        </LinearLayout>-->
+
+    <!--    </com.google.android.material.card.MaterialCardView>-->
+
+
+    <!--    <View-->
+    <!--        android:id="@+id/dividerTwo"-->
+    <!--        android:layout_width="411dp"-->
+    <!--        android:layout_height="2dp"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:background="@color/deep_purple_dark_900" />-->
+
+</LinearLayout>

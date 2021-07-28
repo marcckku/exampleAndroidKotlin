@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_movie_time_neon_sign_popcorn"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/profileError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/warning_color"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="Error Message"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="@dimen/label_size_mediumxx"
+        android:textStyle="normal"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userDetailsSettingRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        tools:listitem="@layout/user_profile_row" />
+
+
+</LinearLayout>

@@ -1,0 +1,216 @@
+
+
+tratto da
+https://medium.com/androiddevelopers/room-rxjava-acb0cd4f3757
+
+Room 🔗 RxJava
+Meno codice standard, query SQL controllate in fase di compilazione e, soprattutto,
+la potenza delle query asincrone e osservabili:
+
+Tutto ciò è possibile con Room , la libreria di persistenza di Architecture Components.
+Le query asincrone restituiscono LiveData o RxJava's Maybe , Single o Flowable .
+
+Le query che restituiscono LiveData e Flowable sono query osservabili. Ti consentono di
+ottenere aggiornamenti automatici ogni volta che i dati cambiano per assicurarti che la
+tua interfaccia utente rifletta gli ultimi valori dal tuo database.
+
+ A partire da `2.0.0-beta01`, anche Room supporta Observable
+
+--------------------
+Insert
+--------------------
+    > Completable — dove viene chiamato onComplete non appena l'inserimento è stato fatto.
+
+    > Single<Long> or Maybe<Long>  dove il valore emesso su onSuccess è l'id di riga
+      dell'elemento inserito.
+
+    > Single<List<Long>> or Maybe<List<Long>> — dove il valore emesso su onSuccess è l'elenco
+      degli ID di riga degli elementi inseriti.
+
+
+In caso di errore nell'inserimento dei dati, Completable, Single e Forse genereranno
+l'eccezione in onError.
+
+Esempio:
+    @Insert
+    fun insert(user: User?): Completable?
+
+    // or
+    @Insert
+    fun insert(user: User?): Maybe<Long?>?
+
+    // or
+    @Insert
+    fun insert(user: Array<User?>?): Single<Long?>?
+
+    // or
+    @Insert
+    fun insert(user: Array<User?>?): Maybe<List<Long?>?>?
+
+    // or
+    @Insert
+    fun insert(user: Array<User?>?): Single<List<Long?>?>?
+
+Utilizzare l'operatore ObserveOn per specificare lo Scheduler su cui un Observer osserverà
+l'Osservable e subscribeOn per specificare lo Scheduler su cui opererà l'Osservable.
+
+
+
+--------------------
+Update/Delete
+--------------------
+
+L'integrazione della stanza con RxJava consente i seguenti tipi di restituzione corrispondenti per
+l'aggiornamento/eliminazione:
+
+    > Completable — dove viene chiamato onComplete non appena l'aggiornamento/cancellazione è stato
+      eseguito.
+
+    > Single<Integer> or Maybe<Integer> — dove il valore emesso su onSuccess è il numero di righe
+    interessate da update/delete.
+
+Esempio:
+    @Update
+    fun update(user: User?): Completable?
+
+    // or
+    @Update
+    fun update(user: User?): Single<Int?>?
+
+    // or
+    @Update
+    fun updateAll(user: Array<User?>?): Single<Int?>?
+
+    // or
+    @Delete
+    fun deleteAll(user: Array<User?>?): Single<Int?>?
+
+    // or
+    @Delete
+    fun deleteAll(user: Array<User?>?): Single<Int?>?
+
+
+NOTA:
+Room offre la possibilità di osservare i dati nel database ed eseguire query asincrone
+con l'aiuto di oggetti RxJava Maybe , Single e Flowable .
+
+Se sei preoccupato per i thread, Room ti tiene a tuo agio e garantisce che le query osservabili
+vengano eseguite dal thread principale .
+
+Sta a te decidere su quale thread vengono emessi gli eventi a valle, impostando lo Scheduler nel
+metodo osservareOn.
+
+Per le query che restituiscono Maybe o Single, assicurati di chiamare subscribeOn con uno Scheduler
+diverso da AndroidSchedulers.mainThread().
+
+
+--------------------
+MAYBE
+--------------------
+
+@Query(“SELECT * FROM Users WHERE id = :id”)
+Forse <User> getUserById(String id);
+
+Ecco cosa succede:
+
+1) Quando non è presente alcun utente nel database e la query non restituisce righe, Maybe verrà
+completato .
+
+2) Quando c'è un utente nel database, Maybesi attiverà onSuccess e si completerà .
+
+3) Se l' utente viene aggiornato dopo che è Maybestato completato, non succede nulla .
+
+
+--------------------
+SINGLE
+--------------------
+
+@Query(“SELECT * FROM Users WHERE id = :id”)
+Single<User> getUserById(String id);
+
+Ecco alcuni scenari:
+
+1) Quando non ci sono utenti nel database e la query non restituisce righe,
+Single attiverà onError(EmptyResultSetException.class)
+
+2) Quando c'è un utente nel database, Single attiverà onSuccess.
+
+3) Se l'utente viene aggiornato dopo che Single è stato completato, non accade nulla.
+
+
+
+
+--------------------
+Flowable/Observable
+--------------------
+
+@Query(“SELECT * FROM Users WHERE id = :id”)
+Flowable<User> getUserById(String id);
+
+Ecco come si comporta il Flowable/Osservable:
+
+1) Quando non è presente alcun utente nel database e la query non restituisce righe,
+   Flowable non emetterà né onNext né onError.
+
+2) Quando c'è un utente nel database, il Flowable si attiverà su Next.
+
+3) Ogni volta che i dati dell'utente vengono aggiornati, l'oggetto Flowable verrà emesso
+   automaticamente, consentendo di aggiornare l'interfaccia utente in base ai dati più recenti.
+
+
+
+
+***************************************************************************************************
+
+HOW TO INSTANCIATE ROOM
+https://developer.android.com/training/data-storage/room
+
+
+
+***************************************************************************************************
+https://www.raywenderlich.com/2071847-reactive-programming-with-rxandroid-in-kotlin-an-introduction
+
+Reactive programming
+
+La programmazione reattiva non è solo un'altra API. È un paradigma di programmazione completamente
+nuovo che riguarda i flussi di dati e la propagazione del cambiamento.
+
+- Nella programmazione imperativa , un'espressione viene valutata una volta e il valore viene
+ assegnato a una variabile.
+
+- D'altra parte, la programmazione reattiva consiste nel rispondere ai cambiamenti di valore .
+
+
+RxKotlin è un wrapper Kotlin intorno a RxJava, che fornisce anche molte utili funzioni di
+estensione per la programmazione reattiva. In effetti, RxKotlin rende il lavoro con RxJava
+non meno reattivo, ma molto più Kotlin-y.
+
+NOTA: Non è necessario specificare nel gradle, RxJava, in modo esplicito poiché RxKotlin lo contiene già.
+
+
+Osservatore (Observer)
+Il pattern Observer definisce una dipendenza uno-a-molti tra gli oggetti.
+Quando un oggetto cambia stato, i suoi dipendenti ricevono una notifica e si aggiornano
+automaticamente.
+
+Questo modello è versatile. Puoi usarlo per operazioni di tempo indeterminato, come le chiamate API.
+Puoi anche usarlo per rispondere all'input dell'utente.
+
+È stato originariamente reso popolare dal framework RxAndroid, noto anche come Reactive Android.
+Questa libreria ti consente di implementare questo modello in tutta la tua app:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

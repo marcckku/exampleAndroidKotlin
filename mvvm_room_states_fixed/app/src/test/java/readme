@@ -1,0 +1,424 @@
+
+    https://medium.com/androiddevelopers/viewmodels-a-simple-example-ed5ac416317e
+
+
+    MVVM
+
+    VIEMODEL
+
+    Il problema di fondo
+    La sfida di fondo è che il ciclo di vita dell'attività Android ha molti stati e una singola
+    attività potrebbe scorrere più volte tra questi diversi stati a causa delle modifiche alla
+    configurazione.
+
+    Poiché un'attività sta attraversando tutti questi stati, potresti anche avere dati temporanei
+    dell'interfaccia utente che devi conservare in memoria. Ho intenzione di definire i dati
+    dell'interfaccia utente transitori come dati necessari per l'interfaccia utente.
+    Gli esempi includono i dati immessi dall'utente, i dati generati durante il runtime oi dati
+    caricati da un database. Questi dati potrebbero essere immagini bitmap, un elenco di oggetti
+    necessari per un RecyclerView o, in questo caso, un punteggio di basket.
+
+    In precedenza, avresti potuto onRetainNonConfigurationInstance salvare questi dati durante una
+    modifica della configurazione e decomprimerli dall'altra parte. Ma non sarebbe bello se i tuoi
+    dati non avessero bisogno di conoscere o gestire lo stato del ciclo di vita in cui si trova
+    l'attività? Invece di avere una variabile come scoreTeamA all'interno dell'attività, e quindi
+    legata a tutti i capricci del ciclo di vita dell'attività, e se quei dati fossero archiviati
+    da qualche altra parte, al di fuori dell'attività? Questo è lo scopo della classe ViewModel.
+
+   * La classe ViewModel è progettata per contenere e gestire i dati relativi all'interfaccia utente
+    in modo consapevole del ciclo di vita. Ciò consente ai dati di sopravvivere alle modifiche alla
+    configurazione come le rotazioni dello schermo.
+
+
+
+
+    ROOM
+     Room, una biblioteca de persistencia que proporciona una capa de abstracción sobre SQLite.
+     Para obtener más información sobre los beneficios de usar Room y cómo implementarla en tu app,
+     consulta la guía Biblioteca de persistencia Room.
+
+
+
+
+MAN UFFICIALE :
+
+https://developer.android.com/guide/components/activities/activity-lifecycle#asem
+
+> Devoluciones de llamada del ciclo de vida
+
+onCreate()
+È necessario implementare questo callback, che viene attivato quando il sistema crea l'attività per la prima volta.
+Quando l'attività viene creata, entra nello stato Creato.
+Nel metodo onCreate(), si esegue la logica di avvio di base dell'applicazione che dovrebbe verificarsi una sola volta
+nell'intera durata dell'attività.
+
+Ad esempio, l'implementazione di onCreate() potrebbe associare i dati agli elenchi, associare l'attività a un ViewModel
+e creare un'istanza di alcune variabili dell'ambito della classe. Questo metodo riceve il parametro saveInstanceState, che è
+un oggetto bundle che contiene lo stato già salvato dell'attività. Se l'attività non è mai esistita, il valore dell'oggetto
+bundle è null.
+
+Se hai un componente che dà la priorità al ciclo di vita ed è connesso al ciclo di vita della tua attività, riceverà l'evento ON_CREATE.
+Il metodo annotato con @OnLifecycleEvent verrà chiamato in modo che il tuo componente che da preferenza al ciclo di vita, possa eseguire
+qualsiasi codice di configurazione necessario per lo stato di creazione.
+
+
+
+
+onStart()
+Quando l'attività entra nello stato onStart, il sistema richiama questo callback onStart().
+La chiamata onStart() consente all'utente di vedere l'attività mentre l'app si prepara a farla apparire e diventare interattiva.
+Ad esempio, questo metodo è il punto in cui l'app inizializza il codice che gestisce l'interfaccia utente.
+
+Quando l'attività entra nello stato onStart, qualsiasi componente che dà la priorità al ciclo di vita collegato all'attività
+riceverà l'evento ON_START.
+
+Il metodo onStart() viene completato molto rapidamente e, come con lo stato Created, l'attività non rimane nello stato Started.
+Al termine di questo callback, l'attività entra nello stato Resumed e il sistema richiama il metodo onResume().
+
+
+
+
+onResume()
+Quando l'attività entra nello stato Resumed, viene in primo piano e quindi il sistema richiama il callback onResume().
+Questo è lo stato in cui l'app interagisce con l'utente.
+L'app rimane in questo stato fino a quando non si verifica un evento che la porta fuori fuoco. Un tale evento potrebbe essere,
+ad esempio, la ricezione di una telefonata, la navigazione dell'utente verso un'altra attività o lo spegnimento dello schermo
+del dispositivo.
+Quando l'attività riprende, qualsiasi componente che dà priorità al ciclo di vita collegato all'attività riceverà l'evento ON_RESUME.
+È qui che i componenti del ciclo di vita possono abilitare qualsiasi funzionalità che deve essere eseguita mentre il componente è
+visibile e in primo piano, ad esempio l'avvio di un'anteprima della fotocamera.
+
+Quando si verifica un evento di interruzione, l'attività entra nello stato Pausa e il sistema richiama il callback onPause().
+Se l'attività ritorna allo stato Resumed da Paused, il sistema chiamerà nuovamente il metodo onResume(). Per questo motivo,
+è necessario implementare onResume(), per inizializzare i componenti che avvii in onPause() e devi eseguire altre inizializzazioni
+che devono essere eseguite ogni volta che l'attività entra nello stato Resumed.
+
+
+
+
+onPause()
+L'esecuzione di onPause() è molto breve e non concede necessariamente tempo sufficiente per eseguire
+operazioni sicure. Per questo motivo, non dovresti usare onPause() per salvare applicazioni o dati utente,
+effettuare chiamate di rete o eseguire transazioni di database.
+È invece necessario eseguire operazioni di terminazione con carico pesante durante onStop().
+
+Se l'attività ritorna dallo stato Paused a Resumed, il sistema manterrà l'istanza Activity in memoria e la richiamerà
+quando si invoca onResume(). In questa situazione, non è necessario reinizializzare i componenti creati durante i metodi
+di callback che portano allo stato Resumed.
+Se l'attività diventa completamente invisibile, il sistema chiamerà onStop()
+
+
+onStop()
+Quando l'utente non può più vedere la tua attività, significa che è entrato nello stato Stopped, e il sistema invoca la
+richiamata onStop(). Ciò può accadere, ad esempio, quando un'attività appena avviata copre l'intero schermo. Il sistema può
+anche chiamare onStop() quando l'attività è terminata e sta per terminare.
+
+Quando l'attività passa allo stato Arrestato, qualsiasi componente che dà la priorità al ciclo di vita collegato all'attività
+riceverà l'evento ON_STOP. È qui che i componenti del ciclo di vita possono interrompere qualsiasi funzionalità che non deve
+essere eseguita finché il componente non è visibile sullo schermo.
+
+Nel metodo onStop(), l'app deve liberare o racchiudere le risorse non necessarie mentre non è visibile all'utente.
+Ad esempio, la tua app potrebbe mettere in pausa le animazioni o passare da aggiornamenti di posizione dettagliati
+a quelli più generali.
+L'utilizzo di onStop() anziché onPause() garantisce che il lavoro relativo all'interfaccia utente continui, anche quando l'utente
+sta visualizzando l'attività in modalità multi-finestra.
+Dovresti anche usare onStop() per eseguire operazioni di conclusione relativamente impegnative per la CPU.
+Ad esempio, se non riesci a trovare un momento migliore per salvare le informazioni in un database, puoi farlo in onStop().
+
+
+
+importante***
+onDestroy()
+OnDestroy() viene chiamato prima del termine dell'attività. Il sistema richiama questo callback per i seguenti motivi:
+
+    - L'attività sta finendo (perché è stata completamente scartata dall'utente o perché viene chiamato finish()).
+    - Il sistema si sta spegnendo temporaneamente a causa di una modifica della configurazione (come la rotazione
+      del dispositivo o la modalità multi-finestra).
+
+Quando l'attività entra nello stato Destroyed, qualsiasi componente che dà priorità al ciclo di vita collegato all'attività
+riceverà l'evento ON_DESTROY.
+
+È qui che i componenti del ciclo di vita possono recuperare tutti gli elementi necessari prima che l'oggetto Activity termini.
+Invece di inserire la logica in quell'oggetto per determinare il motivo per cui l'attività sta finendo, dovresti usare un oggetto
+ViewModel per contenere i dati della vista rilevanti per Activity.
+
+Se l'oggetto Activity deve essere ricreato a causa di una modifica della configurazione, non è necessario che ViewModel esegua alcuna
+azione poiché verrà conservato e consegnato all'istanza successiva dell'oggetto Activity.
+
+Se l'oggetto Activity non verrà ricreato, ViewModel avrà il metodo onCleared(), in cui è possibile recuperare tutti i dati necessari
+prima che l'attività termini.
+
+Puoi differenziare questi due casi con il metodo isFinishing().
+Se l'attività sta terminando, onDestroy() è il callback del ciclo di vita finale che l'attività riceve.
+Se onDestroy() viene chiamato come risultato di una modifica della configurazione, il sistema crea immediatamente una nuova istanza di
+attività e quindi chiama onCreate() su quella nuova istanza nella nuova configurazione.
+
+Il callback onDestroy() dovrebbe rilasciare tutte le risorse che non sono ancora state rilasciate da callback precedenti, come onStop().
+
+
+
+
+importante***
+Stato dell'attività ed espulsione della memoria
+
+Il sistema termina i processi quando ha bisogno di liberare RAM;
+la probabilità che il sistema finisca un dato processo dipenderà dallo stato del processo in quel momento.
+Lo stato del processo, a sua volta, dipende dallo stato dell'attività in esecuzione nel processo. La tabella 1 mostra la correlazione tra
+lo stato del processo, lo stato dell'attività e la probabilità che il sistema termini il processo.
+
+
+Probabilità di completamento             Stato del processo                                 Stato dell'attività
+        Di meno                             Primo piano (a fuoco o esserci dentro)            Created
+                                                                                              Started
+                                                                                              Resumed
+
+        Di più                              Sfondo (perdita di messa a fuoco                  Pausato
+
+
+        Maggiore                            Sfondo (non visibile)                             Fermato
+
+
+                                            Vuoto                                             Finalizzato
+
+ Il sistema non termina mai un'attività direttamente per liberare memoria. Invece, termina il processo in cui l'attività è in esecuzione
+ per uccidere non solo l'attività, ma anche tutto ciò che è in esecuzione nel processo.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+***IMPORTANTE   SALVATAGGIO STATO
+ Come salvare e ripristinare lo stato transitorio dell'interfaccia utente
+
+L'utente si aspetta che lo stato dell'interfaccia utente per un'attività venga mantenuto durante una modifica della configurazione,
+ad esempio la rotazione o il passaggio alla modalità multi-finestra. Tuttavia, il sistema termina l'attività per impostazione
+predefinita quando si verifica tale modifica alla configurazione, rimuovendo qualsiasi stato dell'interfaccia utente memorizzato
+nell'istanza dell'attività.
+Allo stesso modo, un utente si aspetta che lo stato dell'interfaccia utente rimanga lo stesso se passa temporaneamente dalla tua
+app aD un'altra e poi torna alla tua app. Tuttavia, il sistema può terminare il processo della tua applicazione mentre l'utente non
+la sta utilizzando e la tua attività viene interrotta.
+
+Quando l'attività termina a causa di restrizioni di sistema, è necessario preservare lo stato transitorio dell'interfaccia utente
+utilizzando una combinazione di *** ViewModel, onSaveInstanceState() o archiviazione locale ****.
+
+Per approfondire lo studio di come salvare uno stato vai qui Cómo guardar estados de IU. :
+****  https://developer.android.com/topic/libraries/architecture/saving-states   ****
+
+Qui descriviamo lo stato dell'istanza e come implementare il metodo onSaveInstance(), che è un callback all'attività.
+
+Se i dati dell'interfaccia utente sono semplici e leggeri, come un tipo di dati primitivo o un oggetto semplice (come String),
+puoi utilizzare onSaveInstanceState(), solo per mantenere lo stato dell'interfaccia utente sia per le modifiche alla configurazione
+che per la terminazione del processo avviata dal sistema.
+
+Nella maggior parte dei casi, tuttavia, dovresti usare sia ViewModel che onSaveInstanceState(), poiché onSaveInstanceState() ha
+costi di serializzazione e deserializzazione.
+
+
+**** Stato dell'istanza ****
+
+Ci sono alcune situazioni in cui la tua attività termina a causa del normale comportamento dell'app, ad esempio quando l'utente preme
+il pulsante Indietro o la tua attività indica il proprio completamento chiamando il metodo finish().
+
+Quando l'attività termina perché l'utente preme Indietro o l'attività termina da sola, il concetto di quel sistema e dell'istanza
+dell'attività dell'utente viene perso per sempre.
+
+Tuttavia, se il sistema termina l'attività a causa di vincoli (ad esempio una modifica della configurazione o una pressione della memoria),
+anche se l'istanza dell'attività effettiva è scomparsa, il sistema ricorda che esisteva.
+
+Se l'utente tenta di tornare all'attività, il sistema crea una nuova istanza di tale attività utilizzando un set di dati salvati che
+descrivono lo stato dell'attività quando quest'ultima aveva finazalizzato.
+
+I dati salvati che il sistema utilizza per ripristinare lo stato precedente sono chiamati stato dell'istanza
+ed è un insieme di coppie chiave-valore memorizzate in un oggetto Bundle.
+
+Per impostazione predefinita, il sistema utilizza l'Instance Status Bundle per salvare le informazioni per ciascun oggetto View nel layout
+dell'attività (ad esempio, il valore di testo immesso in un widget EditText). In questo modo, se la tua attività viene terminata e ricreata,
+lo stato del layout viene ripristinato allo stato precedente senza che tu debba scrivere alcun codice.
+
+Tuttavia, la tua attività potrebbe avere più informazioni sullo stato che desideri reimpostare, come le variabili dei membri che tengono
+traccia dei progressi dell'utente nell'attività.
+
+
+**** IMPORTANTE ****
+Nota: affinché il sistema Android reimposti lo stato delle visualizzazione/schermate delle tue attività, ogni visualizzazione deve avere
+un ID univoco fornito dall'attributo android: id.
+
+
+*** OCCHIO ***
+Un oggetto Bundle non è appropriato per conservare più di una quantità insignificante di dati, perché richiede la serializzazione sul
+thread principale e consuma memoria dal processo di sistema.
+Per preservare più di una quantità molto piccola di dati, dovresti adottare un approccio combinato, utilizzando l'archiviazione locale
+persistente, il metodo onSaveInstanceState () e la classe ViewModel, come descritto in  :
+
+      Cómo guardar estados de IU.  ****  https://developer.android.com/topic/libraries/architecture/saving-states  ***
+
+Per salvare ulteriori informazioni sullo stato dell'istanza dell'attività, è necessario sovrascrivere
+onSaveInstanceState() e aggiungere coppie chiave-valore all'oggetto Bundle che viene salvato nel caso
+in cui l'attività venga interrotta in modo imprevisto.
+
+Come salvare uno stato dell'interfaccia utente semplice e leggero utilizzando onSaveInstanceState()
+
+override fun onSaveInstanceState(outState: Bundle?) {
+    // Save the user's current game state
+    outState?.run {
+        putInt(STATE_SCORE, currentScore)
+        putInt(STATE_LEVEL, currentLevel)
+    }
+
+    // Always call the superclass so it can save the view hierarchy state
+    super.onSaveInstanceState(outState)
+}
+
+companion object {
+    val STATE_SCORE = "playerScore"
+    val STATE_LEVEL = "playerLevel"
+}
+
+***IMPORTANTE ****
+Nota: onSaveInstanceState() non viene chiamato quando l'utente chiude esplicitamente l'attività o in altri casi quando chiami finish().
+
+**********************************
+Per salvare dati persistenti, come le preferenze dell'utente o le informazioni da un database, devi cogliere le opportunità appropriate
+quando la tua attività è in primo piano. Altrimenti se non si presenta tale opportunità, è necessario salvare i dati durante il metodo
+onStop().
+Se non vuoi perdite di dati invece, salvali non appena l'utente inserisce il dato altrimenti utilizza onStop().
+
+*********************************
+
+
+MAN UFFICIALE COME USARE SaveStateHandled() NELLA IMPLEMENTAZIONE
+https://developer.android.com/codelabs/android-lifecycles#6
+
+MAN UFFICIALE  - leggere !!
+https://developer.android.com/topic/libraries/architecture/viewmodel-savedstate
+*********************************
+FONTE
+MEDIUM ESEMPIO - Riassunto del perchè usare lo stato e viewModel
+https://medium.com/androiddevelopers/viewmodels-persistence-onsaveinstancestate-restoring-ui-state-and-loaders-fc7cc4a6c090
+DIFFERENZE TRA onSaveInstanceState e setRetainInstance
+
+* onSaveInstanceState():
+Questo callback ha lo scopo di conservare una piccola quantità di dati relativi all'interfaccia utente
+in due situazioni:
+    - Il processo dell'app viene interrotto quando è in background a causa di vincoli di memoria.
+    - Modifiche alla configurazione.
+
+Esenzialmente viene chiamato in situazioni in cui l'attività è interrotta , ma non terminata
+dal sistema.
+
+"L'implementazione predefinita di questo metodo salva informazioni transitorie sullo stato della
+gerarchia di visualizzazione dell'attività, come il testo in un widget EditText o la posizione di
+scorrimento di un widget ListView ."
+— Salvataggio e ripristino della documentazione sullo stato dell'istanza
+
+*********************************
+* Fragment.setRetainInstance(true)
+
+L'utilità della creazione di un frammento conservato è che ha lo scopo di conservare grandi insiemi
+di dati come immagini o di conservare oggetti complessi come le connessioni di rete.
+
+È lo stesso di onSaveInstanceState(Bundle) ma viene chiamato per le attività create con l'attributo
+R.attr.persistableMode impostato su persistAcrossReboots. Il PersistableBundle passato verrà
+salvato e presentato in onCreate(android.os.Bundle, android.os.PersistableBundle) la prima volta
+che questa attività viene riavviata dopo il successivo riavvio del dispositivo.
+
+Controlla se un'istanza di frammento viene conservata durante la ricreazione dell'attività
+(ad esempio da una modifica della configurazione). Questo può essere utilizzato solo con frammenti
+non nella stack/pila posteriore. Se impostato, il ciclo di vita del frammento sarà leggermente diverso
+quando viene ricreata un'attività:
+
+
+ADDING TO GRADLE:
+    //STATE
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-alpha01'
+
+**** IMPORTANTE
+YOU TUBE SPIEGAZIONE VIEWMODEL + STATE
+i il nuovo modo, usando ViewModel Saved State. Puoi iniziare a guardare l'esempio di codice dal min 15:27
+https://www.youtube.com/watch?v=Qxj2eBmXLHg&t=926s
+
+Cos'è cambiato attualmente (8 may. 2019) VIEWMODEL + STATE 'onSaveInstanceState()' ?
+    - Invece di salvare lo stato in un bundle nell'attività, ora hai un SavedStateHandlenel ViewModel.
+    - Non è più necessario inviare e ricevere lo stato da e verso l'attività.
+    - SavedStateHandle è molto simile al bundle: è una mappa chiave-valore che sopravvive alla morte
+      del processo correlato a vincoli di memoria. Per gli stessi motivi sopra indicati, dovresti
+      memorizzare solo una piccola quantità di dati in SavedStateHandle.
+      Fondamentalmente, SavedStateHandle sostituisce Bundle****.
+    - SavedStateHandle ha la possibilità aggiuntiva di restituire LiveData.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

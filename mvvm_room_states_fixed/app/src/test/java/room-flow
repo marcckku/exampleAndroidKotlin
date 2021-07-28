@@ -1,0 +1,55 @@
+
+/**
+ * Riassunto tratto da
+ * https://medium.com/androiddevelopers/room-flow-273acffe5b57
+ *
+ * Il supporto per le coroutine in Room è aumentato ad ogni versione:
+ * Room 2.1 ha aggiunto il supporto per le coroutine per operazioni
+ * di lettura/scrittura one-shot e con Room 2.2 ora abbiamo il supporto
+ * per letture osservabili con Flow che ti consente di ricevere notifiche
+ * sui cambiamenti nel tuo database.
+ *
+ *  Room async query support.
+ *
+ *  Importante:
+ *  Nel tuo codice, usa gli operatori di Flow come distintiUntilChanged,
+ *  per assicurarti di ricevere una notifica solo quando i dati che ti interessano
+ *  sono cambiati:
+ *
+ *  Il Flow tende ad essere utilizzato per attività costose in quanto fornisce la
+ *  pulizia automatica tramite l'annullamento della coroutine.
+ *
+ *  L'API BroadcastChannel è la soluzione perfetta quando vuoi che il produttore segua
+ *  un ciclo di vita diverso e trasmetta il risultato corrente a chiunque stia ascoltando.
+ *  In questo modo, il produttore non ha bisogno di iniziare ogni volta che un nuovo ascoltatore
+ *  inizia a consumare eventi "come nel caso di Flow".
+ *
+ *  Quando usi BroadcastChannel, devi prenderti cura del suo ciclo di vita.
+ *  Assicurati di chiudere il BroadcastChannel quando non è più necessario.
+ *  Inoltre, ricorda che un canale chiuso non può essere di nuovo attivo,
+ *  dovrai creare una nuova istanza.
+ *
+ * ATTENZIONE :
+ * ANNO 2019
+ * Parti delle API Flow e Channel sono ancora in fase sperimentale, è probabile che cambino.
+ *
+ * leggere il sommario!!!
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * */
